@@ -25,8 +25,14 @@ for img_path in INPUT_DIR.glob("*"):
 
     biggest = max(results.boxes, key=lambda b: (b.xyxy[0][2] - b.xyxy[0][0]) * (b.xyxy[0][3] - b.xyxy[0][1]))
     x1, y1, x2, y2 = map(int, biggest.xyxy[0])
+    y1 = y1 - 10
+    x1 = x1 - 10
+    x2 = x2 + 10
+
 
     cropped = img[y1:y2, x1:x2]
 
+
     out_path = OUTPUT_DIR / f"{img_path.stem}_crop.png"
+
     cv2.imwrite(str(out_path), cropped)
